@@ -1,0 +1,5 @@
+{
+  "errors": {
+    "username": ["has already been taken"]
+  }
+}
