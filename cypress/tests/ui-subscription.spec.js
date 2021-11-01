@@ -13,23 +13,53 @@ describe('Subscription', () => {
 		}, {
 
 			statusCode: 200,
-			body:{
-				"user": {
-					 "email":"teste@testando.com",
-					 "username":"testando",
-					 "bio":null,
-					 "image":"https://realworld-temp-api.herokuapp.com/images/smiley-cyrus.jpeg",
-					 "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNqcWlzcWhAaXNhaXNpanMuY29tIiwidXNlcm5hbWUiOiJoc2F1aHNhdWh1aCIsImJpbyI6bnVsbCwiaW1hZ2UiOiJodHRwczovL3JlYWx3b3JsZC10ZW1wLWFwaS5oZXJva3VhcHAuY29tL2ltYWdlcy9zbWlsZXktY3lydXMuanBlZyIsImlhdCI6MTYzNTczNDg2MCwiZXhwIjoxNjQwOTE4ODYwfQ.iwA_E1-jk6kgpyE-o7dc-pAXSww5hgnE3Cf_jPWziOk"
-				}
-		 }
+			fixture: 'success-subscription'
 		}).as('postUsers')
 
-		 cy.visit('register')
+		cy.visit('register')
 		cy.get('input[placeholder=Username]').type('testando')
 		cy.get('input[type=email]').type('teste@testando.com')
 		cy.get('input[placeholder=Password]').type('password')
 		cy.get('button[type=submit]').click()
 
 		cy.contains('No articles are here... yet.').should('be.visible')
+	});
+
+	it('Existing username', () => {
+		cy.intercept({
+			method: 'POST',
+			url: 'https://api.realworld.io/api/users',
+		}, {
+
+			statusCode: 422,
+			fixture: 'existing-user'
+		}).as('postUsers')
+	
+		cy.visit('register')
+		cy.get('input[placeholder=Username]').type('testando')
+		cy.get('input[type=email]').type('teste@testando.com')
+		cy.get('input[placeholder=Password]').type('password')
+		cy.get('button[type=submit]').click()
+
+		cy.contains('username has already been taken').should('be.visible')
+	});
+	
+	it('Existing email user', () => {
+		cy.intercept({
+			method: 'POST',
+			url: 'https://api.realworld.io/api/users',
+		}, {
+
+			statusCode: 422,
+			fixture: 'existing-email-user'
+		}).as('postUsers')
+	
+		cy.visit('register')
+		cy.get('input[placeholder=Username]').type('testando')
+		cy.get('input[type=email]').type('teste@testando.com')
+		cy.get('input[placeholder=Password]').type('password')
+		cy.get('button[type=submit]').click()
+
+		cy.contains('email has already been taken').should('be.visible')
 	});
 });
