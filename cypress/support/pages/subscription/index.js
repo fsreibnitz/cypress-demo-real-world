@@ -1,17 +1,15 @@
-import { ELEMENTS } from "./elements"
+import { ELEMENTS } from './elements'
 
-class  Subscription{
+class Subscription {
+  fillForm () {
+    cy.get(ELEMENTS.inputUsername).type('testando')
+    cy.get(ELEMENTS.inputEmail).type('teste@testando.com')
+    cy.get(ELEMENTS.inputPassword).type('password')
+  }
 
-	fillForm(){
-		cy.get(ELEMENTS.inputUsername).type('testando')
-		cy.get(ELEMENTS.inputEmail).type('teste@testando.com')
-		cy.get(ELEMENTS.inputPassword).type('password')
-	}
-
-	submitForm(){
-		cy.get().click()
-
-	}
+  submitForm () {
+    cy.get().click()
+  }
 }
 
-export default new Subscription
+export default new Subscription()
