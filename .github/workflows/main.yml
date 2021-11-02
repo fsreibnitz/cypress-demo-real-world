@@ -31,10 +31,5 @@ jobs:
       - name: E2E & UI
         run: cypress-io/github-action@v2
 
-      # Upload videos
-      - name: Upload a Build Artifact
-        if: always()
-        uses: actions/upload-artifact@v2.2.4
-        with: 
-          path: cypress/videos
+    
 
