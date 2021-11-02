@@ -3,7 +3,7 @@
 const { Chance } = require('chance');
 var chance = require('chance')
 
-
+import subscription from '../support/pages/subscription';
 describe('Subscription', () => {
 	
 	it('Subscription success', () => {
@@ -17,10 +17,7 @@ describe('Subscription', () => {
 		}).as('postUsers')
 
 		cy.visit('register')
-		cy.get('input[placeholder=Username]').type('testando')
-		cy.get('input[type=email]').type('teste@testando.com')
-		cy.get('input[placeholder=Password]').type('password')
-		cy.get('button[type=submit]').click()
+		subscription.submitForm()
 
 		cy.contains('No articles are here... yet.').should('be.visible')
 	});
@@ -36,10 +33,12 @@ describe('Subscription', () => {
 		}).as('postUsers')
 	
 		cy.visit('register')
-		cy.get('input[placeholder=Username]').type('testando')
-		cy.get('input[type=email]').type('teste@testando.com')
-		cy.get('input[placeholder=Password]').type('password')
-		cy.get('button[type=submit]').click()
+		subscription.fillForm()
+    subscription.submitForm()
+		// cy.get('input[placeholder=Username]').type('testando')
+		// cy.get('input[type=email]').type('teste@testando.com')
+		// cy.get('input[placeholder=Password]').type('password')
+		// cy.get('button[type=submit]').click()
 
 		cy.contains('username has already been taken').should('be.visible')
 	});
@@ -55,10 +54,13 @@ describe('Subscription', () => {
 		}).as('postUsers')
 	
 		cy.visit('register')
-		cy.get('input[placeholder=Username]').type('testando')
-		cy.get('input[type=email]').type('teste@testando.com')
-		cy.get('input[placeholder=Password]').type('password')
-		cy.get('button[type=submit]').click()
+		subscription.fillForm(
+		subscription.submitForm()
+		)
+		// cy.get('input[placeholder=Username]').type('testando')
+		// cy.get('input[type=email]').type('teste@testando.com')
+		// cy.get('input[placeholder=Password]').type('password')
+		// cy.get('button[type=submit]').click()
 
 		cy.contains('email has already been taken').should('be.visible')
 	});
