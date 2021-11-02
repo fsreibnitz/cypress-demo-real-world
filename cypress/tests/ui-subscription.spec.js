@@ -52,8 +52,8 @@ describe('Subscription', () => {
     ).as('postUsers')
 
     cy.visit('register')
-    subscription.fillForm(subscription.submitForm())
-
+    subscription.fillForm()
+    subscription.submitForm()
     cy.contains('email has already been taken').should('be.visible')
   })
 })
