@@ -1,36 +1,31 @@
-name: CI
+name: ci
+on: 
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push events but only for the main branch
+  # execucacao por eventos
   push:
-    branches: [ main ]
+    branches:
+      - main
   
-  # Triggers the workflow on a schedule 
+  # execucao programada
   schedule:
-    - cron: '59 23 * * 6'
+    - cron:  '00 12 11 * 1'
     
-  # Allows you to run this workflow manually from the Actions tab
+  # execucao manual  
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Check out code
-      # Checks-out your repository under $GITHUB_WORKSPACE
+      - name: Check out code 🛎
         uses: actions/checkout@v2
 
-      # E2E & UI
-      - name: E2E & UI
-        run: cypress-io/github-action@v2
-
-    
-  # Upload videos
+      - name: E2E & UI 🧪
+        uses: cypress-io/github-action@v2
+          
       - name: Upload a Build Artifact
         if: always()
         uses: actions/upload-artifact@v2.2.4
-        with: 
+        with:
           path: cypress/videos
