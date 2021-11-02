@@ -1,14 +1,13 @@
-import { ELEMENTS } from './elements'
-
+const el = require('./elements').ELEMENTS
 class Subscription {
   fillForm () {
-    cy.get(ELEMENTS.inputUsername).type('testando')
-    cy.get(ELEMENTS.inputEmail).type('teste@testando.com')
-    cy.get(ELEMENTS.inputPassword).type('password')
+    cy.get(el.inputUsername).type('testando')
+    cy.get(el.inputEmail).type('teste@testando.com')
+    cy.get(el.inputPassword).type('password')
   }
 
   submitForm () {
-    cy.get().click()
+    cy.get(el.buttonSubmit).click()
   }
 }
 
